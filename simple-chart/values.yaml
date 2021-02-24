@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image: zroom2/simple_crud:0.0.1
+
+service:
+  type: NodePort
+  port: 8000
+
+
+ingress:
+  enabled: true
+  annotations: {
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  }
+  hosts:
+    - host: arch.homework
+      paths:
+        - /(.*)
+
+externalPostgresql:
+  postgresqlUsername: user
+  postgresqlPassword: strong_passwd
+  postgresqlDatabase: users
+  postgresqlHost: "simple-db"
+  postgresqlPort: "5432"
